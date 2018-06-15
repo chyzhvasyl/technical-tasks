@@ -78,7 +78,8 @@ let filterfilms= this.props.notes.filter((note)=>
 
                 {
                     filterfilms.map((note) =>{
-                        return <Note
+                        return <div>
+                        <Note
 
                             key={note.id}
                             name ={note.name}
@@ -89,12 +90,15 @@ let filterfilms= this.props.notes.filter((note)=>
                         >
 
 
-                            <Toolbar  data={note.data}   />
+
                         </Note>
 
+                            <Toolbar  data={note.name}   />
+                    </div>
                         }
                     )
                 }
+
             </Masonry>
 
             </div>

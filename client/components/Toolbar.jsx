@@ -12,7 +12,7 @@ export default class Toolbar extends Component {
         const isSorted = this.sorted[type];
         // устанавливаем направление
         let direction = isSorted ? 1 : -1;
-
+        console.log({data});
         // создаём новый массив из данных, чтобы не перезаписывать
         // состояние и сортируем его
         const sorted =  [].slice.call(data) .sort((a, b) => {
