@@ -26,7 +26,10 @@ export default class Toolbar extends Component {
         // меняем порядок сортировки
         this.sorted[type] = !isSorted;
 
-
+        update({
+            data: sorted,
+            active: 0
+        });
     }
     reset() {
         this.props.update({
