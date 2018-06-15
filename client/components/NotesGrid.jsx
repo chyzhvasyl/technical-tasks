@@ -18,7 +18,15 @@ class NotesGrid extends Component{
         };
 
     }
-
+    handleBtnClick  () {
+        if (order === 'desc') {
+            this.refs.table.handleSort('asc', 'name');
+            order = 'asc';
+        } else {
+            this.refs.table.handleSort('desc', 'name');
+            order = 'desc';
+        }
+    };
 
 
     /*ddddddddddddddddddddddddddddddddddddd*/
@@ -28,7 +36,9 @@ class NotesGrid extends Component{
 
     /*ddddddddddddddddddddddddddddddddddddd*/
 
-
+    updateData(config) {
+        this.setState(config);
+    }
 
 
     updateSearch(event)
@@ -44,6 +54,13 @@ let filterfilms= this.props.notes.filter((note)=>
     return (arr.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1);
 
 });
+
+
+        let names= this.props.notes.map((note)=>
+        {
+            return  note.name;
+
+        });
 
         const masonryOptions = {
             itemSelector: '.Note',
@@ -61,9 +78,19 @@ let filterfilms= this.props.notes.filter((note)=>
                     <div>Шукаєм</div>
                  <input type = "text" value={this.state.search}   onChange={this.updateSearch.bind(this)}/>
 
+                 <Toolbar  data ={names}     update={this.updateData.bind(this)} /><br/>
+                  
                <br/>
                <br/>
-                 {console.log(this.props.name)}
+                 <div>
+                     <p style={ { color: 'red' } }>You cam click header to sort or click following button to perform a sorting by expose API</p>
+                     <button onClick={ this.handleBtnClick }>Sort Product Name</button>
+                     <BootstrapTable ref='table' data={ names }>
+
+                         <TableHeaderColumn dataField='name' dataSort={ true }>Product Name</TableHeaderColumn>
+
+                     </BootstrapTable>
+                 </div>
 
            </div>
                 <div className="row">
@@ -78,8 +105,7 @@ let filterfilms= this.props.notes.filter((note)=>
 
                 {
                     filterfilms.map((note) =>{
-                        return <div>
-                        <Note
+                        return <Note
 
                             key={note.id}
                             name ={note.name}
@@ -93,12 +119,9 @@ let filterfilms= this.props.notes.filter((note)=>
 
                         </Note>
 
-                            <Toolbar  data={note.name}   />
-                    </div>
                         }
                     )
                 }
-
             </Masonry>
 
             </div>

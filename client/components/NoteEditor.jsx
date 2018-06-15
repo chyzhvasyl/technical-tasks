@@ -59,7 +59,7 @@ const NoteEditor = React.createClass({
     render() {
         return (
             <Form className="container">
-                {console.log(this.props.name)}
+
                 <FormGroup>
                     <Label for="exampleEmail">Name</Label>
                     <Input type="text" name="name" id="exampleEmail" placeholder="Name" value ={this.state.name} onChange ={this.handleTextChange} />

@@ -39,17 +39,17 @@ const App = React.createClass({
     handleNoteAdd(noteData) {
         NotesActions.createNote(noteData);
     },
-    updateData(config) {
-        this.setState(config);
-    },
+
 
 
     render() {
         return (
+            <div>
             <div className='App'>
                 <h2 className='App__header'>Бібліотєка</h2>
                 <NoteEditor onNoteAdd={this.handleNoteAdd} />
                 <NotesGrid notes={this.state.notes} onNoteDelete={this.handleNoteDelete} />
+            </div>
             </div>
         );
     },

@@ -17,6 +17,10 @@ class Note extends Component {
             popoverOpen: !this.state.popoverOpen
         });
     }
+
+    updateData(config) {
+        this.setState(config);
+    }
     render() {
 
 
