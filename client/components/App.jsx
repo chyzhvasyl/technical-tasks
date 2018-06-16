@@ -16,6 +16,7 @@ function getStateFromFlux() {
 }
 
 const App = React.createClass({
+
     getInitialState() {
         return getStateFromFlux();
     },

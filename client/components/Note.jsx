@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
-import { UncontrolledCollapse, Button, CardBody, Card, Collapse, Modal, ModalHeader, ModalBody, ModalFooter, Popover, PopoverHeader, PopoverBody} from 'reactstrap';
+
 import './Note.less';
+import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import Toolbar from './Toolbar.jsx'
+
 class Note extends Component {
     constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            popoverOpen: false
-        };
-    }
+            popoverOpen: false,
 
+        };
+
+    }
     toggle() {
         this.setState({
             popoverOpen: !this.state.popoverOpen
         });
-    }
-
-    updateData(config) {
-        this.setState(config);
     }
     render() {
 
@@ -41,24 +40,27 @@ class Note extends Component {
                         :
                         null
                 }
-                <div className='Note__text'>
+                <div  >
                     <div>
                         Рік:{this.props.year }
+                        <div >
+                            <Button id="Popover1" className="btn btn-default" onClick={this.toggle}>
+                                Деталі
+                            </Button>
+                            <Popover placement="top"  isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle} >
+                                <div className='container'>
+                                <PopoverHeader>{this.props.name}</PopoverHeader>
+                                <PopoverBody> Рік:{this.props.year }<br/>
+                                    Формат:{this.props.format }<br/>
+                                    Актори:{this.props.actors }</PopoverBody>
 
+                                </div>
+                            </Popover>
+                        </div>
 
                     </div>
 
-                    <div>
-                        <Button id="Popover1" onClick={this.toggle}>
-Деталі
-                        </Button>
-                        <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
-                            <PopoverHeader>{this.props.name}</PopoverHeader>
-                            <PopoverBody> Рік:{this.props.year }<br/>
-                                Формат:{this.props.format }<br/>
-                                Актори:{this.props.actors }</PopoverBody>
-                        </Popover>
-                    </div>
+
                 </div>
 
             </div>

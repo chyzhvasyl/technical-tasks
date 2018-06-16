@@ -5,40 +5,40 @@ import Masonry from 'react-masonry-component';
  import Toolbar from './Toolbar.jsx'
 import Datasort from 'react-data-sort'
 import './NotesGrid.less';
-
+import Table from './sort.jsx'
 let ReactBsTable  = require('react-bootstrap-table');
 let BootstrapTable = ReactBsTable.BootstrapTable;
 let TableHeaderColumn = ReactBsTable.TableHeaderColumn;
-    let order = 'desc';
+
+
+
+
+
 class NotesGrid extends Component{
+
     constructor (props) {
         super(props);
         this.state = {
-            search : ''
+            search : '',
+            data: null,
+            active: 0,
+            term: ''
         };
 
     }
-    handleBtnClick  () {
-        if (order === 'desc') {
-            this.refs.table.handleSort('asc', 'name');
-            order = 'asc';
-        } else {
-            this.refs.table.handleSort('desc', 'name');
-            order = 'desc';
-        }
-    };
 
-
-    /*ddddddddddddddddddddddddddddddddddddd*/
-
-
-
-
-    /*ddddddddddddddddddddddddddddddddddddd*/
 
     updateData(config) {
         this.setState(config);
     }
+
+    /*-------------------ДЛЯ вставочок----------------------------*/
+
+
+
+
+    /*-----------------------------------------------------------*/
+
 
 
     updateSearch(event)
@@ -55,12 +55,12 @@ let filterfilms= this.props.notes.filter((note)=>
 
 });
 
-
         let names= this.props.notes.map((note)=>
         {
             return  note.name;
 
         });
+
 
         const masonryOptions = {
             itemSelector: '.Note',
@@ -72,37 +72,22 @@ let filterfilms= this.props.notes.filter((note)=>
         return (
             <div>
                 <br/><br/>
-
              <div>
-
                     <div>Шукаєм</div>
                  <input type = "text" value={this.state.search}   onChange={this.updateSearch.bind(this)}/>
+                 <Toolbar notes={this.notes}   data ={names}     update={this.updateData.bind(this)} /><br/>
 
-                 <Toolbar  data ={names}     update={this.updateData.bind(this)} /><br/>
-                  
                <br/>
                <br/>
-                 <div>
-                     <p style={ { color: 'red' } }>You cam click header to sort or click following button to perform a sorting by expose API</p>
-                     <button onClick={ this.handleBtnClick }>Sort Product Name</button>
-                     <BootstrapTable ref='table' data={ names }>
-
-                         <TableHeaderColumn dataField='name' dataSort={ true }>Product Name</TableHeaderColumn>
-
-                     </BootstrapTable>
-                 </div>
 
            </div>
                 <div className="row">
                     <div className="col-sm-12">
-
                     </div>
                 </div>
             <Masonry
                 className='NotesGrid'
                 options={masonryOptions}>
-
-
                 {
                     filterfilms.map((note) =>{
                         return <Note
@@ -114,11 +99,7 @@ let filterfilms= this.props.notes.filter((note)=>
                             onDelete={this.props.onNoteDelete.bind(null, note)}
                             actors={note.actors}
                         >
-
-
-
                         </Note>
-
                         }
                     )
                 }
