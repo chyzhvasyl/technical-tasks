@@ -2,12 +2,13 @@ import React from 'react';
 
 import NotesStore from '../stores/NotesStore';
 import NotesActions from '../actions/NotesActions';
-
+import {Provider} from 'react-redux'
 import NoteEditor from './NoteEditor.jsx';
 import NotesGrid from './NotesGrid.jsx';
 
-
-
+//import {BrowserRouter, Route, Link} from 'react-router-dom'
+//import createBrowserhistory from 'history/createBrowserhistory'
+//const history=createBrowserhistory;
 function getStateFromFlux() {
     return {
         isLoading: NotesStore.isLoading(),
@@ -48,7 +49,10 @@ const App = React.createClass({
             <div>
             <div className='App'>
                 <h2 className='App__header'>Бібліотєка</h2>
-                <NoteEditor onNoteAdd={this.handleNoteAdd} />
+
+
+
+                <NoteEditor onNoteAdd={this.handleNoteAdd}/>
                 <NotesGrid notes={this.state.notes} onNoteDelete={this.handleNoteDelete} />
             </div>
             </div>

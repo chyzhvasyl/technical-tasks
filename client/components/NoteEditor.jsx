@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 
 
-
+import js from './js.jsx'
 import './NoteEditor.less';
 
 const NoteEditor = React.createClass({
@@ -30,9 +30,7 @@ const NoteEditor = React.createClass({
         this.setState({ actors: event.target.value });
     },
 
-    handleColorfile(event) {
-        this.setState({ file: event.target.value });
-    },
+
     handleChange: function(event) {
         console.log('Selected file:', event.target.files[0]);
     },
@@ -55,9 +53,44 @@ const NoteEditor = React.createClass({
             actors: '',
             file: ' '   });
     },
-
+    readFile(object, callback) {
+        let file = object.files[0];
+        console.log(file);
+        let reader = new FileReader();
+        reader.onload = function() {
+            callback(reader.result);
+            console.log(reader)
+        };
+        reader.readAsText(file)
+    },
+    saveFile(data, name){
+        let a=document.createElement("a");
+        a.setAttribute("download", name||"file.txt");
+        a.setAttribute("href", "data:application/octet-stream;base64,"+btoa(data||"undefined"));
+        a.click()
+    },
+    read(){
+        let file = document.getElementById("file").files[0];
+        console.log("Loading \""+file.name+"\"... ("+Math.round(file.size/1024)+"kB)");
+        if(file.size>=256*1024){
+            if(!confirm("File size is "+Math.round(file.size/1024)+"kBytes! Really want to read it?")){
+                console.log("Aborting loading file...");
+                return
+            }
+        }
+        let reader = new FileReader();
+        reader.onload = function() {
+            console.log("File readed!");
+            document.getElementById("out").innerHTML=reader.result
+        };
+        console.log("Starting reading file...");
+        reader.readAsText(file)
+    },
     render() {
         return (
+            <div>
+
+
             <Form className="container">
 
                 <FormGroup>
@@ -78,23 +111,33 @@ const NoteEditor = React.createClass({
                 </FormGroup>
                 <FormGroup>
                     <Label for="exampleText">Text Area</Label>
-                    <Input type="textarea" name="text" id="exampleText"  value ={this.state.actors} onChange ={this.handleTitleText} />
+                    <Input type="textarea" name="actors" id="exampleText"  value ={this.state.actors} onChange ={this.handleTitleText} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="exampleFile">File</Label>
 
-                    <Input   id="exampleFile" type="file" name="file"
-                             accept=".txt "
-                             placeholder="My Image"
-                             className="inputClass"
-                             onChange={this.handleChange} />
-                    <FormText color="muted">
-                        Завантажити фільм
-                    </FormText>
+
+
                 </FormGroup>
 
                 <Button  disabled={!this.state.actors}  onClick={this.handleNoteAdd} color="danger">Додати фільм</Button>
+
             </Form>
+                <br/>
+                <input type="file" id="file" name="file"  />
+                <br/>
+                <button onClick={this.read} outline color="warning">
+                    прочітать
+                </button>
+                <div id="out">
+
+                </div>
+                <br/>
+                <br/>
+                    <div>
+
+
+                    </div>
+            </div>
         );
     }
 });

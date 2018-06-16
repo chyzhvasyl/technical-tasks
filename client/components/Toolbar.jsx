@@ -18,7 +18,7 @@ export default class Toolbar extends Component {
 
             if (a[type] === b[type]) { return 0; }
 
-            return  a[type] > b[type] ? direction : direction * -1 ;
+            return a[type] > b[type] ? direction : direction * -1;
 
         });
 

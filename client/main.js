@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Navigation from './components/App.jsx';
 
-import App from './components/App.jsx';
 
 ReactDOM.render(
-    <App />,
+    <Navigation />,
     document.getElementById('mount-point')
 );

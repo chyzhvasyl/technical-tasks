@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 require('./films');
-const Film = mongoose.model('Film');
+const Film = mongoose.model('Note');
 var config = require('./etc/config.json');
 
 var config2 = _interopRequireDefault(config);
